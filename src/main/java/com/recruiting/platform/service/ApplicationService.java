@@ -1,0 +1,45 @@
+package com.recruiting.platform.service;
+
+import com.recruiting.platform.model.*;
+import com.recruiting.platform.repository.ApplicationRepository;
+import com.recruiting.platform.repository.JobRepository;
+import com.recruiting.platform.repository.UserRepository;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+
+import java.time.LocalDateTime;
+import java.util.List;
+
+@Service
+@RequiredArgsConstructor
+public class ApplicationService {
+
+    private final ApplicationRepository applicationRepository;
+    private final UserRepository userRepository;
+    private final JobRepository jobRepository;
+
+    public void applyForJob(Long jobId, String username) {
+        User candidate = userRepository.findByEmail(username)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+        Job job = jobRepository.findById(jobId)
+                .orElseThrow(() -> new RuntimeException("Job not found"));
+
+        if (applicationRepository.existsByCandidateAndJob(candidate, job)) {
+            throw new com.recruiting.platform.exception.DuplicateApplicationException("You have already applied for this job");
+        }
+
+        Application application = new Application();
+        application.setCandidate(candidate);
+        application.setJob(job);
+        application.setAppliedDate(LocalDateTime.now());
+        application.setStatus(ApplicationStatus.APPLIED);
+
+        applicationRepository.save(application);
+    }
+
+    public List<Application> findMyApplications(String username) {
+        User candidate = userRepository.findByEmail(username)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+        return applicationRepository.findByCandidate(candidate);
+    }
+}
