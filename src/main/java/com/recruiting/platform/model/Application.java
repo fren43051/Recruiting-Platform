@@ -1,12 +1,10 @@
 package com.recruiting.platform.model;
 
 import jakarta.persistence.*;
-import lombok.Data;
 import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "applications")
-@Data
 public class Application {
 
     @Id
@@ -27,4 +25,44 @@ public class Application {
     @ManyToOne
     @JoinColumn(name = "job_id", nullable = false)
     private Job job;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public LocalDateTime getAppliedDate() {
+        return appliedDate;
+    }
+
+    public void setAppliedDate(LocalDateTime appliedDate) {
+        this.appliedDate = appliedDate;
+    }
+
+    public ApplicationStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(ApplicationStatus status) {
+        this.status = status;
+    }
+
+    public User getCandidate() {
+        return candidate;
+    }
+
+    public void setCandidate(User candidate) {
+        this.candidate = candidate;
+    }
+
+    public Job getJob() {
+        return job;
+    }
+
+    public void setJob(Job job) {
+        this.job = job;
+    }
 }

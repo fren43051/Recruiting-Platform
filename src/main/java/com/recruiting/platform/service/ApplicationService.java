@@ -4,19 +4,25 @@ import com.recruiting.platform.model.*;
 import com.recruiting.platform.repository.ApplicationRepository;
 import com.recruiting.platform.repository.JobRepository;
 import com.recruiting.platform.repository.UserRepository;
-import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
-@RequiredArgsConstructor
 public class ApplicationService {
 
     private final ApplicationRepository applicationRepository;
     private final UserRepository userRepository;
     private final JobRepository jobRepository;
+
+    @Autowired
+    public ApplicationService(ApplicationRepository applicationRepository, UserRepository userRepository, JobRepository jobRepository) {
+        this.applicationRepository = applicationRepository;
+        this.userRepository = userRepository;
+        this.jobRepository = jobRepository;
+    }
 
     public void applyForJob(Long jobId, String username) {
         User candidate = userRepository.findByEmail(username)
