@@ -43,6 +43,8 @@ public class AuthController {
     @PostMapping("/register")
     public ResponseEntity<?> register(@Valid @RequestBody RegisterRequest registerRequest) {
         try {
+            // Force CANDIDATE role for public registration
+            registerRequest.setRole("ROLE_CANDIDATE");
             // Register the user
             authService.register(registerRequest);
 
@@ -86,7 +88,7 @@ public class AuthController {
             }
 
             // Force ADMIN role regardless of the incoming payload
-            registerRequest.setRole("ADMIN");
+            registerRequest.setRole("ROLE_ADMIN");
 
             authService.register(registerRequest);
 
