@@ -23,5 +23,6 @@ com/recruiting/platform/model/Job.class
 com/recruiting/platform/exception/GlobalExceptionHandler.class
 com/recruiting/platform/repository/ApplicationRepository.class
 com/recruiting/platform/service/UserDetailsServiceImpl.class
+com/recruiting/platform/model/EmploymentType.class
 com/recruiting/platform/config/SecurityConfig.class
 com/recruiting/platform/model/ApplicationStatus.class
