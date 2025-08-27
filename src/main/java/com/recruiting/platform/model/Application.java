@@ -20,6 +20,7 @@ public class Application {
 
     @ManyToOne
     @JoinColumn(name = "candidate_id", nullable = false)
+    @com.fasterxml.jackson.annotation.JsonBackReference("user-applications")
     private User candidate;
 
     @ManyToOne

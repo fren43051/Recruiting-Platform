@@ -6,6 +6,14 @@ import jakarta.persistence.*;
 @Table(name = "`User`")
 public class User {
 
+    @OneToMany(mappedBy = "candidate", cascade = CascadeType.ALL, orphanRemoval = true)
+    @com.fasterxml.jackson.annotation.JsonManagedReference("user-applications")
+    private java.util.List<Application> applications;
+
+    @OneToMany(mappedBy = "recruiter", cascade = CascadeType.ALL, orphanRemoval = true)
+    @com.fasterxml.jackson.annotation.JsonManagedReference("user-jobs")
+    private java.util.List<Job> jobs;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
