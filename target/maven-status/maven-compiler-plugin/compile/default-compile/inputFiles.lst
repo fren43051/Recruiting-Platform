@@ -4,11 +4,13 @@
 /app/src/main/java/com/recruiting/platform/controller/ApplicationController.java
 /app/src/main/java/com/recruiting/platform/controller/AuthController.java
 /app/src/main/java/com/recruiting/platform/controller/JobController.java
+/app/src/main/java/com/recruiting/platform/controller/UserController.java
 /app/src/main/java/com/recruiting/platform/dto/ApiResponse.java
 /app/src/main/java/com/recruiting/platform/dto/LoginRequest.java
 /app/src/main/java/com/recruiting/platform/dto/RegisterRequest.java
 /app/src/main/java/com/recruiting/platform/exception/DuplicateApplicationException.java
 /app/src/main/java/com/recruiting/platform/exception/GlobalExceptionHandler.java
+/app/src/main/java/com/recruiting/platform/exception/ResourceNotFoundException.java
 /app/src/main/java/com/recruiting/platform/model/Application.java
 /app/src/main/java/com/recruiting/platform/model/ApplicationStatus.java
 /app/src/main/java/com/recruiting/platform/model/Job.java
