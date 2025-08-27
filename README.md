@@ -137,6 +137,26 @@ Notas y permisos
 - Todos los endpoints bajo `/api/applications/**` requieren un token JWT válido (cualquier usuario autenticado).
 - Los estados de candidatura posibles son: APPLIED, REVIEWING, REJECTED, HIRED.
 
+## Requisitos del entorno de desarrollo
+
+### Software necesario
+
+- **JDK 21**: El proyecto está configurado para Java 21. Es importante usar esta versión específica.
+  - Descargar desde: https://adoptium.net/ o https://www.oracle.com/java/technologies/downloads/#java21
+- **Maven 3.x**: Para gestión de dependencias y construcción del proyecto
+- **IntelliJ IDEA**: Recomendado para desarrollo (Community o Ultimate)
+- **Git**: Para control de versiones
+
+### Verificar instalación
+
+Ejecuta estos comandos en la terminal para verificar las versiones:
+
+```bash
+java -version          # Debe mostrar versión 21.x.x
+mvn -version          # Debe mostrar Maven 3.x.x
+git --version         # Cualquier versión reciente
+```
+
 ## Persistencia de datos
 
 La base de datos está configurada en modo de archivo; los datos persisten entre reinicios de la aplicación. Los archivos de la base se almacenan en la carpeta `data` en la raíz del proyecto.
@@ -280,6 +300,145 @@ Verificación rápida (checklist)
 - [ ] GET /api/user con token ADMIN responde 200; con token de usuario normal responde 403.
 - [ ] POST /api/auth/register crea usuario y NO devuelve token.
 
+
+## Flujo de trabajo con IntelliJ IDEA
+
+### Configuración inicial del proyecto
+
+1. **Prerequisitos**
+   - Instala JDK 21 (el proyecto requiere Java 21)
+   - Instala IntelliJ IDEA (Community o Ultimate)
+   - Asegúrate de tener Git configurado
+
+2. **Clonar el repositorio**
+   ```bash
+   git clone https://github.com/fren43051/Recruiting-Platform.git
+   cd Recruiting-Platform
+   ```
+
+3. **Abrir en IntelliJ IDEA**
+   - Abre IntelliJ IDEA
+   - Selecciona "Open" y navega hasta la carpeta del proyecto
+   - IntelliJ detectará automáticamente que es un proyecto Maven
+   - Espera a que se descarguen las dependencias
+
+### Sincronizar cambios del repositorio remoto
+
+Para descargar las últimas actualizaciones del repositorio en IntelliJ IDEA:
+
+#### Método 1: Usando la interfaz gráfica de IntelliJ
+1. Ve al menú **Git** → **Pull** (o usa `Ctrl+T`)
+2. Asegúrate de que el branch remoto sea `origin/main` (o el branch que estés usando)
+3. Haz clic en **Pull** para descargar los cambios
+4. Si hay conflictos, IntelliJ te ayudará a resolverlos
+
+#### Método 2: Usando la terminal integrada
+1. Abre la terminal en IntelliJ (`Alt+F12`)
+2. Ejecuta:
+   ```bash
+   git pull origin main
+   ```
+
+#### Método 3: Usando Git Branches
+1. En la esquina inferior derecha, haz clic en el nombre del branch actual
+2. Selecciona el branch remoto que quieres sincronizar
+3. Elige "Update" o "Pull"
+
+### Flujo de trabajo recomendado
+
+1. **Antes de empezar a trabajar**
+   ```bash
+   git pull origin main  # Descargar últimos cambios
+   ```
+
+2. **Durante el desarrollo**
+   - Haz commits frecuentes con mensajes descriptivos
+   - Usa `Ctrl+K` para hacer commit en IntelliJ
+   - Prueba tu código localmente antes de hacer push
+
+3. **Sincronizar cambios**
+   ```bash
+   git add .
+   git commit -m "Descripción de los cambios"
+   git push origin main
+   ```
+
+### Configuración de Java en IntelliJ
+
+Si tienes problemas con la versión de Java:
+
+1. Ve a **File** → **Project Structure** (`Ctrl+Alt+Shift+S`)
+2. En **Project Settings** → **Project**:
+   - **Project SDK**: Selecciona JDK 21
+   - **Project language level**: 21
+3. En **Modules** → **Sources**:
+   - Verifica que **Language level** sea 21
+4. Ve a **Settings** → **Build, Execution, Deployment** → **Compiler** → **Java Compiler**:
+   - **Project bytecode version**: 21
+
+### Ejecutar el proyecto en IntelliJ
+
+1. **Usando la clase principal**
+   - Localiza `RecruitingPlatformApplication.java`
+   - Haz clic derecho → **Run 'RecruitingPlatformApplication'**
+
+2. **Usando Maven**
+   - Abre la ventana de Maven (lateral derecho)
+   - Navega a **Plugins** → **spring-boot** → **spring-boot:run**
+   - Haz doble clic para ejecutar
+
+3. **Usando la terminal**
+   ```bash
+   mvn spring-boot:run
+   ```
+
+### Solución de problemas comunes
+
+#### Error de versión de Java
+- **Problema**: "release version 21 not supported"
+- **Solución**: Verifica que tengas JDK 21 instalado y configurado en IntelliJ
+
+#### Dependencias no se descargan
+- **Solución**: 
+  1. Ve a **Maven** → **Reload Maven Projects** (icono de refresh)
+  2. O ejecuta `mvn clean install` en la terminal
+
+#### Cambios no aparecen
+- **Solución**:
+  1. Verifica que estés en el branch correcto
+  2. Ejecuta `git status` para ver el estado
+  3. Usa `git pull` para traer cambios remotos
+
+#### Conflictos de merge
+- **Solución**:
+  1. IntelliJ tiene herramientas integradas de merge
+  2. Ve a **VCS** → **Git** → **Resolve Conflicts**
+  3. Usa el editor visual para resolver conflictos
+
+### Comandos Git útiles en la terminal de IntelliJ
+
+```bash
+# Ver estado actual
+git status
+
+# Ver historial de commits
+git log --oneline
+
+# Crear nuevo branch
+git checkout -b nombre-del-branch
+
+# Cambiar de branch
+git checkout main
+
+# Ver diferencias
+git diff
+
+# Descartar cambios locales
+git checkout -- archivo.java
+
+# Ver branches remotos
+git branch -a
+```
 
 ## Estructura del proyecto (limpia)
 
