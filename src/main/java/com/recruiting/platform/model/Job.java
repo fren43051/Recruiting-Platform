@@ -27,6 +27,11 @@ public class Job {
     @JoinColumn(name = "recruiter_id", nullable = false)
     private User recruiter;
 
+    private String salary;
+
+    @Enumerated(EnumType.STRING)
+    private EmploymentType employmentType;
+
     public Long getId() {
         return id;
     }
@@ -73,5 +78,21 @@ public class Job {
 
     public void setRecruiter(User recruiter) {
         this.recruiter = recruiter;
+    }
+
+    public String getSalary() {
+        return salary;
+    }
+
+    public void setSalary(String salary) {
+        this.salary = salary;
+    }
+
+    public EmploymentType getEmploymentType() {
+        return employmentType;
+    }
+
+    public void setEmploymentType(EmploymentType employmentType) {
+        this.employmentType = employmentType;
     }
 }

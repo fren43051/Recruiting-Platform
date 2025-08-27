@@ -3,7 +3,7 @@ package com.recruiting.platform.model;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "users")
+@Table(name = "`User`")
 public class User {
 
     @Id

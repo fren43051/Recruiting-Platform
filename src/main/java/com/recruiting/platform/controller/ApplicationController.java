@@ -47,4 +47,17 @@ public class ApplicationController {
         log.info("[APP] Listado de aplicaciones para {} total={}", username, applications.size());
         return ResponseEntity.ok(applications);
     }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Application> getApplicationById(@PathVariable Long id) {
+        Application application = applicationService.getApplicationById(id);
+        return ResponseEntity.ok(application);
+    }
+
+    @DeleteMapping("/{id}")
+    @org.springframework.security.access.prepost.PreAuthorize("hasRole('ADMIN')") // Solo un admin puede borrar postulaciones
+    public ResponseEntity<com.recruiting.platform.dto.ApiResponse<?>> deleteApplication(@PathVariable Long id) {
+        applicationService.deleteApplication(id);
+        return ResponseEntity.ok(com.recruiting.platform.dto.ApiResponse.success("Application deleted successfully"));
+    }
 }

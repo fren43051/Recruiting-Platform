@@ -4,10 +4,7 @@ import com.recruiting.platform.model.Job;
 import com.recruiting.platform.service.JobService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -32,5 +29,25 @@ public class JobController {
         return jobService.findById(id)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
+    }
+
+    @PostMapping
+    @org.springframework.security.access.prepost.PreAuthorize("hasAnyRole('ADMIN', 'RECRUITER')")
+    public Job createJob(@org.springframework.web.bind.annotation.RequestBody Job job) {
+        return jobService.save(job);
+    }
+
+    @PutMapping("/{id}")
+    @org.springframework.security.access.prepost.PreAuthorize("hasAnyRole('ADMIN', 'RECRUITER')")
+    public ResponseEntity<Job> updateJob(@PathVariable Long id, @org.springframework.web.bind.annotation.RequestBody Job jobDetails) {
+        Job updatedJob = jobService.update(id, jobDetails);
+        return ResponseEntity.ok(updatedJob);
+    }
+
+    @DeleteMapping("/{id}")
+    @org.springframework.security.access.prepost.PreAuthorize("hasAnyRole('ADMIN', 'RECRUITER')")
+    public ResponseEntity<Void> deleteJob(@PathVariable Long id) {
+        jobService.deleteById(id);
+        return ResponseEntity.noContent().build();
     }
 }

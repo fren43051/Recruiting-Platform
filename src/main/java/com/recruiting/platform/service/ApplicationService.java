@@ -48,4 +48,14 @@ public class ApplicationService {
                 .orElseThrow(() -> new RuntimeException("User not found"));
         return applicationRepository.findByCandidate(candidate);
     }
+
+    public Application getApplicationById(Long id) {
+        return applicationRepository.findById(id)
+                .orElseThrow(() -> new com.recruiting.platform.exception.ResourceNotFoundException("Application not found with id: " + id));
+    }
+
+    public void deleteApplication(Long id) {
+        Application application = getApplicationById(id);
+        applicationRepository.delete(application);
+    }
 }
