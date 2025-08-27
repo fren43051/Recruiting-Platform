@@ -25,6 +25,7 @@ public class Job {
 
     @ManyToOne
     @JoinColumn(name = "recruiter_id", nullable = false)
+    @com.fasterxml.jackson.annotation.JsonBackReference("user-jobs")
     private User recruiter;
 
     private String salary;
