@@ -25,4 +25,25 @@ public class JobService {
     public Optional<Job> findById(Long id) {
         return jobRepository.findById(id);
     }
+
+    public Job save(Job job) {
+        return jobRepository.save(job);
+    }
+
+    public Job update(Long id, Job jobDetails) {
+        Job job = jobRepository.findById(id)
+                .orElseThrow(() -> new com.recruiting.platform.exception.ResourceNotFoundException("Job not found with id: " + id));
+
+        job.setTitle(jobDetails.getTitle());
+        job.setDescription(jobDetails.getDescription());
+        job.setLocation(jobDetails.getLocation());
+        job.setSalary(jobDetails.getSalary());
+        job.setEmploymentType(jobDetails.getEmploymentType());
+
+        return jobRepository.save(job);
+    }
+
+    public void deleteById(Long id) {
+        jobRepository.deleteById(id);
+    }
 }

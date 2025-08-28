@@ -289,4 +289,3 @@ Este repositorio usa la estructura estándar de Maven:
 - src/test/java: tests
 - pom.xml: configuración de Maven
 
-Hemos eliminado archivos duplicados y carpetas fuera de esta estructura (p. ej. archivos .java en la raíz del repo y copias en carpetas como Recruiting-Platform\... y Users\Enrique\IdeaProjects\Recruiting-Platform\...). Solo el código dentro de src/main/java y src/test/java es el que se compila y debe mantenerse.
