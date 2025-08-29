@@ -1,5 +1,6 @@
 package com.recruiting.platform.controller;
 
+import com.recruiting.platform.dto.ApiResponse;
 import com.recruiting.platform.model.Job;
 import com.recruiting.platform.service.JobService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,8 +47,8 @@ public class JobController {
 
     @DeleteMapping("/{id}")
     @org.springframework.security.access.prepost.PreAuthorize("hasAnyRole('ADMIN', 'RECRUITER')")
-    public ResponseEntity<Void> deleteJob(@PathVariable Long id) {
+    public ResponseEntity<ApiResponse<?>> deleteJob(@PathVariable Long id) {
         jobService.deleteById(id);
-        return ResponseEntity.noContent().build();
+        return ResponseEntity.ok(ApiResponse.success("Job deleted successfully"));
     }
 }
